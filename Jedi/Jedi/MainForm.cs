@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Jedi;
 using Jedi.Presenters;
 using Jedi.Services;
 using Jedi.ViewModels;
 using Jedi.Views;
 using JediUI.Properties;
-using Kennedy.ManagedHooks;
+using MouseKeyboardActivityMonitor.Controls;
 
 namespace JediUI
 {
@@ -17,21 +16,40 @@ namespace JediUI
 		private readonly ShortcutMemorizer memos = new ShortcutMemorizer();
 		private readonly KeyStateManager mgr = new KeyStateManager();
 		private readonly MainFormPresenter presenter;
-		private KeyboardHook keyboardHook;
-		private MouseHook mouseHook;
-
+		//private KeyboardHook keyboardHook;
+		//private MouseHook mouseHook;
+		private MouseKeyEventProvider mouseKeyEventProvider;
 		public MainForm()
 		{
 			InitializeComponent();
 			AllowTransparency = true;
 			presenter = new MainFormPresenter(this, new JediSettings());
 
-			mouseHook = new MouseHook();
-			mouseHook.MouseEvent += MouseHookMouseEvent;
-			keyboardHook = new KeyboardHook();
-			keyboardHook.KeyboardEvent += KeyboardHookKeyboardEvent;
+
+//			mouseHook = new MouseHook();
+//			mouseHook.MouseEvent += MouseHookMouseEvent;
+			
+//			keyboardHook = new KeyboardHook();
+//			keyboardHook.KeyboardEvent += KeyboardHookKeyboardEvent;
 			mgr.ShortcutActivated += mgr_OnShortcutActivated;
-			keyboardHook.InstallHook();
+//			keyboardHook.InstallHook();
+
+			mouseKeyEventProvider = new MouseKeyEventProvider();
+			mouseKeyEventProvider.KeyDown += OnKeyDown;
+			mouseKeyEventProvider.KeyUp += OnKeyUp;
+			mouseKeyEventProvider.Enabled = true;
+
+		}
+
+		
+		void OnKeyUp(object sender, KeyEventArgs e)
+		{
+			mgr.Input(KeyboardEvents.KeyUp, e.KeyData);
+		}
+
+		void OnKeyDown(object sender, KeyEventArgs e)
+		{
+			mgr.Input(KeyboardEvents.KeyDown, e.KeyData);
 		}
 
 		public void DisplayKeys(IEnumerable<KeyViewModel> keys)
@@ -133,16 +151,20 @@ namespace JediUI
 			Settings.Default.Save();
 			Settings.Default.Upgrade();
 
-			if (mouseHook != null)
+			if (mouseKeyEventProvider != null)
 			{
-				mouseHook.Dispose();
-				mouseHook = null;
+				mouseKeyEventProvider.Dispose();
 			}
-			if (keyboardHook != null)
-			{
-				keyboardHook.Dispose();
-				keyboardHook = null;
-			}
+//			if (mouseHook != null)
+//			{
+//				mouseHook.Dispose();
+//				mouseHook = null;
+//			}
+//			if (keyboardHook != null)
+//			{
+//				keyboardHook.Dispose();
+//				keyboardHook = null;
+//			}
 		}
 
 		private void MainFormLoad(object sender, EventArgs e)
@@ -150,11 +172,11 @@ namespace JediUI
 			presenter.HandleLoad();
 		}
 
-		private void MouseHookMouseEvent(MouseEvents mEvent, Point point)
-		{
-			string message = string.Format("Mouse event: {0}: ({1},{2}).", mEvent, point.X, point.Y);
-			AddText(message);
-		}
+//		private void MouseHookMouseEvent(MouseEvents mEvent, Point point)
+//		{
+//			string message = string.Format("Mouse event: {0}: ({1},{2}).", mEvent, point.X, point.Y);
+//			AddText(message);
+//		}
 
 		private void MouselessModeOnOffToolStripMenuItemClick(object sender, EventArgs e)
 		{

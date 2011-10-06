@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Jedi;
 using Jedi.Entities;
 using Jedi.Services;
 using JediUI.Properties;
-using Kennedy.ManagedHooks;
 
 namespace JediUI
 {
@@ -52,6 +51,7 @@ namespace JediUI
 			{
 				ShortcutActivated(BuildKeyMessage(keyStates, currentKey));
 			}
+			Debug.WriteLine("K={0} {1}", currentKey, kEvents);
 		}
 
 		public event ShorcutDelegate ShortcutActivated;

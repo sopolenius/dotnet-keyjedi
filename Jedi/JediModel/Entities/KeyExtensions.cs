@@ -11,9 +11,15 @@ namespace Jedi.Entities
 				{
 					Keys.Control,
 					Keys.ControlKey,
+					Keys.LControlKey,
+					Keys.RControlKey,
 					Keys.Alt,
+					Keys.LMenu,
+					Keys.RMenu,
 					Keys.Shift,
 					Keys.ShiftKey,
+					Keys.RShiftKey,
+					Keys.LShiftKey,
 					Keys.LWin,
 					Keys.RWin
 				};
@@ -49,13 +55,19 @@ namespace Jedi.Entities
 					{Keys.OemMinus, "-"},
 					{Keys.OemPeriod, "."},
 					{Keys.OemQuestion, "?"},
-					{Keys.Oemtilde, "'"},
+					{Keys.Oemtilde, "~"},
 					{Keys.OemOpenBrackets, "["},
 					{Keys.OemPipe, "/"},
 					{Keys.OemCloseBrackets, "]"},
 					{Keys.OemQuotes, "'"},
 					{Keys.OemBackslash, @"\"},
-					{Keys.Control, "Ctrl"}
+					{Keys.LMenu, @"Alt"},
+					{Keys.RMenu, @"Alt"},
+					{Keys.Control, "Ctrl"},
+					{Keys.LControlKey, "L Ctrl"},
+					{Keys.RControlKey, "R Ctrl"},
+					{Keys.LShiftKey, "L Shift"},
+					
 				};
 
 		private static readonly List<Keys> specialSingleKeys =
