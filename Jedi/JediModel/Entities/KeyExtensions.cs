@@ -18,8 +18,8 @@ namespace Jedi.Entities
 					Keys.RMenu,
 					Keys.Shift,
 					Keys.ShiftKey,
-					Keys.RShiftKey,
 					Keys.LShiftKey,
+					Keys.RShiftKey,
 					Keys.LWin,
 					Keys.RWin
 				};
@@ -64,9 +64,10 @@ namespace Jedi.Entities
 					{Keys.LMenu, @"Alt"},
 					{Keys.RMenu, @"Alt"},
 					{Keys.Control, "Ctrl"},
-					{Keys.LControlKey, "L Ctrl"},
-					{Keys.RControlKey, "R Ctrl"},
-					{Keys.LShiftKey, "L Shift"},
+					{Keys.LControlKey, "Ctrl"},
+					{Keys.RControlKey, "Ctrl"},
+					{Keys.LShiftKey, "Shift"},
+					{Keys.RShiftKey, "Shift"},
 					
 				};
 

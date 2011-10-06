@@ -16,23 +16,15 @@ namespace JediUI
 		private readonly ShortcutMemorizer memos = new ShortcutMemorizer();
 		private readonly KeyStateManager mgr = new KeyStateManager();
 		private readonly MainFormPresenter presenter;
-		//private KeyboardHook keyboardHook;
-		//private MouseHook mouseHook;
-		private MouseKeyEventProvider mouseKeyEventProvider;
+		private readonly MouseKeyEventProvider mouseKeyEventProvider;
+
 		public MainForm()
 		{
 			InitializeComponent();
 			AllowTransparency = true;
 			presenter = new MainFormPresenter(this, new JediSettings());
 
-
-//			mouseHook = new MouseHook();
-//			mouseHook.MouseEvent += MouseHookMouseEvent;
-			
-//			keyboardHook = new KeyboardHook();
-//			keyboardHook.KeyboardEvent += KeyboardHookKeyboardEvent;
 			mgr.ShortcutActivated += mgr_OnShortcutActivated;
-//			keyboardHook.InstallHook();
 
 			mouseKeyEventProvider = new MouseKeyEventProvider();
 			mouseKeyEventProvider.KeyDown += OnKeyDown;
@@ -155,16 +147,6 @@ namespace JediUI
 			{
 				mouseKeyEventProvider.Dispose();
 			}
-//			if (mouseHook != null)
-//			{
-//				mouseHook.Dispose();
-//				mouseHook = null;
-//			}
-//			if (keyboardHook != null)
-//			{
-//				keyboardHook.Dispose();
-//				keyboardHook = null;
-//			}
 		}
 
 		private void MainFormLoad(object sender, EventArgs e)
