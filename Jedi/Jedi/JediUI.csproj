@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EasyHook">
-      <HintPath>..\..\Libs\EasyHook.dll</HintPath>
-    </Reference>
     <Reference Include="MouseKeyboardActivityMonitor">
       <HintPath>..\..\Libs\MouseKeyboardActivityMonitor.dll</HintPath>
     </Reference>
