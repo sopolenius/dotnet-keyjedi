@@ -6,8 +6,17 @@ namespace Jedi.Entities
 {
 	public static class KeyExtensions
 	{
-		private static readonly List<Keys> comboKeys =
-			new List<Keys>
+		private static readonly HashSet<Keys> ignoredKeys =
+			new HashSet<Keys> 
+				{
+					Keys.Shift,
+					Keys.ShiftKey,
+					Keys.LShiftKey,
+					Keys.RShiftKey
+				};
+
+		private static readonly HashSet<Keys> comboKeys =
+			new HashSet<Keys>
 				{
 					Keys.Control,
 					Keys.ControlKey,
@@ -104,12 +113,17 @@ namespace Jedi.Entities
 
 		public static bool IsComboKey(this Keys currentKey)
 		{
-			return comboKeys.Any(x => x == currentKey);
+			return comboKeys.Contains(currentKey);
+		}
+
+		public static bool IsIgnoreKey(this Keys currentKey)
+		{
+			return ignoredKeys.Contains(currentKey);
 		}
 
 		public static bool IsSpecialSingleKey(this Keys keys)
 		{
-			return specialSingleKeys.Any(x => x == keys);
+			return specialSingleKeys.Contains(keys);
 		}
 	}
 }

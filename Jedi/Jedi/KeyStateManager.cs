@@ -15,7 +15,7 @@ namespace JediUI
 
 		private readonly bool visualStudioOnly = Settings.Default.VisualStudioOnly;
 		private bool isSystemKeyDown;
-
+		
 		public delegate void ShorcutDelegate(string msg);
 
 		public KeyStateManager()
@@ -30,20 +30,19 @@ namespace JediUI
 				return;
 			}
 
-			if (((kEvents == KeyboardEvents.SystemKeyDown) || (kEvents == KeyboardEvents.KeyDown)) &&
-			    currentKey.IsComboKey())
+			if (kEvents == KeyboardEvents.KeyDown && currentKey.IsComboKey())
 			{
 				keyStates[currentKey] = true;
 				isSystemKeyDown = true;
+				
 			}
-			if (((kEvents == KeyboardEvents.SystemKeyUp) || (kEvents == KeyboardEvents.KeyUp)) &&
-			    currentKey.IsComboKey())
+			else if (kEvents == KeyboardEvents.KeyUp && currentKey.IsComboKey())
 			{
 				keyStates[currentKey] = false;
 				isSystemKeyDown = AreAllSystemKeysDown(keyStates);
 			}
-			if (((kEvents == KeyboardEvents.SystemKeyDown) || (kEvents == KeyboardEvents.KeyDown)) &&
-			    (!currentKey.IsComboKey() && isSystemKeyDown))
+
+			if (kEvents == KeyboardEvents.KeyDown && (!currentKey.IsComboKey() && isSystemKeyDown) && !IsShiftOnly(keyStates))
 			{
 				ShortcutActivated(BuildKeyMessage(keyStates, currentKey));
 			}
@@ -59,6 +58,13 @@ namespace JediUI
 		private bool AreAllSystemKeysDown(Dictionary<Keys, bool> states)
 		{
 			return states.Any(pair => pair.Value);
+		}
+
+		private bool IsShiftOnly(Dictionary<Keys, bool> states)
+		{
+
+			return states.Any(pair => pair.Value && pair.Key.IsIgnoreKey()) &&
+				!states.Any(pair => pair.Value && !pair.Key.IsIgnoreKey());
 		}
 
 		private string BuildKeyMessage(Dictionary<Keys, bool> states, Keys key)
