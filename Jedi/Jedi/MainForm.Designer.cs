@@ -42,6 +42,7 @@ namespace JediUI
 			this.eToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.KeysListView = new System.Windows.Forms.ListView();
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			((System.ComponentModel.ISupportInitialize)(this.OpacityTrackBar)).BeginInit();
 			this.mnuList.SuspendLayout();
 			this.SuspendLayout();
@@ -59,7 +60,7 @@ namespace JediUI
 			this.label1.TabIndex = 3;
 			this.label1.Text = "Press Ctrl-Shift-Alt-F12 to stop Mousless Mode";
 			// 
-			// trackBar1
+			// OpacityTrackBar
 			// 
 			this.OpacityTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -124,7 +125,8 @@ namespace JediUI
 			this.KeysListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
 			this.KeysListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.KeysListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader2});
 			this.KeysListView.ContextMenuStrip = this.mnuList;
 			this.KeysListView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.KeysListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
@@ -178,6 +180,7 @@ namespace JediUI
         private System.Windows.Forms.ColumnHeader columnHeader1;
         public System.Windows.Forms.ListView KeysListView;
         public System.Windows.Forms.ContextMenuStrip mnuList;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
 
     }
 }

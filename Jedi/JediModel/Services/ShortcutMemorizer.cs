@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
@@ -7,11 +8,11 @@ namespace Jedi.Services
 	public class ShortcutMemorizer
 	{
 		public const string HEADER_TEXT = "Shortcuts Recorded in Key Jedi\r\n------------------------------------";
-		private readonly Dictionary<string, string> memos = new Dictionary<string, string>();
+		private readonly Dictionary<string, string> memos = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
 		public void AddShortCut(string shortcut, string memo)
 		{
-			memos[shortcut.ToUpper()] = memo;
+			memos[shortcut] = memo;
 		}
 
 		public void SetMemosToCliboard()
@@ -29,6 +30,13 @@ namespace Jedi.Services
 				builder.AppendLine();
 			}
 			return builder.ToString();
+		}
+
+		public string GetText(string shortcut)
+		{
+			String text = String.Empty;
+			memos.TryGetValue(shortcut, out text);
+			return text;
 		}
 	}
 }

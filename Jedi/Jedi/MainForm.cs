@@ -49,10 +49,22 @@ namespace JediUI
 			KeysListView.Items.Clear();
 			foreach (var key in keys)
 			{
-				ListViewItem listViewItem = KeysListView.Items.Add(key.Text);
+				ListViewItem listViewItem = KeysListView.Items.Add(key.Text + GetMemoText(key));
+				
 				listViewItem.ForeColor = key.Color;
 			}
 			KeysListView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+			
+		}
+
+		private string GetMemoText(KeyViewModel keyViewModel)
+		{
+			String t = memos.GetText(keyViewModel.Text);
+			if (!String.IsNullOrEmpty(t))
+			{
+				return String.Format(" | {0}", t);
+			}
+			return t;
 		}
 
 		public void SetFont(Font font)
